@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount the local folder to reflect code-changes in the container
+      - .:/app
+      # Ensure node_modules is not mounted
+      - /app/node_modules
+      # Use the cache-volume
+      - nx-cache:/app/.nx
+    environment:
+      NODE_ENV: development
+    command: npm run start
+
+volumes:
+  nx-cache:
